@@ -37,7 +37,8 @@ switch ($_GET["action"]) {
             $req = $db->prepare($sql);
             $req->bindValue(1, $_POST["lastname"], PDO::PARAM_STR);
             $req->bindValue(2, $_POST["firstname"], PDO::PARAM_STR);
-      
+            echo $req->execute();
+
             if ($req->execute()) {
               header('Location: ../intervenants.php');
             }

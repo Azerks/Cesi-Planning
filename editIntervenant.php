@@ -9,6 +9,7 @@ $sql = "SELECT * FROM speakers WHERE id = " . $_GET["id"];
 $req = $db->prepare($sql);
 $req->execute();
 $intervenant = $req->fetch();
+
 if (!$intervenant) {
     header("Location: ./intervenants.php");
 }
@@ -57,7 +58,7 @@ include("./components/header.php");
                 </div>
             </div>
             <div class="card-body">
-                <form action="./traitements/promos.php?action=edit&id=<?= $_GET["id"] ?>" method="POST">
+                <form action="./traitements/intervenants.php?action=edit&id=<?= $_GET["id"] ?>" method="POST">
                     <h6 class="heading-small text-muted mb-4">Intervenant informations</h6>
                     <div class="pl-lg-12">
                         <div class="row">
