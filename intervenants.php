@@ -7,6 +7,14 @@ $req = $db->prepare($sql);
 $req->execute();
 $speakers = $req->fetchAll();
 
+function getSubjects($db, $speaker_id)
+{
+  $sql = "SELECT * FROM `speakers_subjects` JOIN subjects ON subjects.id = speakers_subjects.subject_id WHERE speaker_id = $speaker_id";
+  $req = $db->prepare($sql);
+  $req->execute();
+  return $req->fetchAll();
+}
+
 ?>
 
 <!-- Header -->
@@ -35,6 +43,23 @@ $speakers = $req->fetchAll();
 </div>
 <!-- Page content -->
 <div class="container-fluid mt--6">
+
+  <?php if (
+    isset($_GET["notif"]) && !empty($_GET["notif"])
+    && isset($_GET["type"]) && !empty($_GET["type"])
+  ) { ?>
+
+    <div class="alert alert-<?= $_GET["type"] ?> alert-dismissible fade show" role="alert">
+      <span class="alert-icon"><i class="ni ni-like-2"></i></span>
+      <span class="alert-text"><?= $_GET["notif"] ?></span>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+  <?php } ?>
+
+
   <div class="row">
 
 
@@ -59,6 +84,7 @@ $speakers = $req->fetchAll();
               <tr>
                 <th scope="col" class="sort" data-sort="name">Nom</th>
                 <th scope="col" class="sort" data-sort="budget">Prénom</th>
+                <th scope="col" class="sort" data-sort="budget">Matières</th>
                 <th scope="col"></th>
               </tr>
             </thead>
@@ -70,6 +96,11 @@ $speakers = $req->fetchAll();
                   </th>
                   <td>
                     <?= $speaker["firstname"] ?>
+                  </td>
+                  <td>
+                    <?php foreach (getSubjects($db,  $speaker["id"]) as $key => $sub) { ?>
+                      <a href="./editSubject.php?id=<?= $sub["id"] ?>" class="badge badge-primary badge-md"><?= $sub["name"] ?></a>
+                    <?php } ?>
                   </td>
                   <td class="text-right">
                     <a class="text-white btn btn-primary" href="./editIntervenant.php?id=<?= $speaker["id"] ?>"><i class="ni ni-settings-gear-65 text-white"></i></a>

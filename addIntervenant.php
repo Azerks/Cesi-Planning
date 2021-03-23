@@ -1,4 +1,13 @@
-<?php include("./components/header.php") ?>
+<?php
+include("./components/header.php");
+include("./components/db.php");
+
+$sql = "SELECT * FROM subjects";
+$req = $db->prepare($sql);
+$req->execute();
+$subjects = $req->fetchAll();
+
+?>
 
 <!-- Header -->
 <div class="header bg-primary pb-6">
@@ -60,6 +69,14 @@
                                     <input type="text" name="firstname" id="firstname" class="form-control" placeholder="Jérémy">
                                 </div>
                             </div>
+                        </div>
+                        <div class="row m-0">
+                            <?php foreach ($subjects as $key => $sub) { ?>
+                                <div class="custom-control custom-checkbox col-md-1">
+                                    <input type="checkbox" class="custom-control-input" id="subject-<?= $sub["id"] ?>" name="subjects_ids[]" value="<?= $sub["id"]  ?>">
+                                    <label class="custom-control-label text-uppercase" for="subject-<?= $sub["id"] ?>"><?= $sub["name"]  ?></label>
+                                </div>
+                            <?php } ?>
                         </div>
                         <div class="text-right">
                             <button class="btn btn-success">Ajouter</button>

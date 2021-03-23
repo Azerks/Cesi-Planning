@@ -9,10 +9,26 @@ $sql = "SELECT * FROM speakers WHERE id = " . $_GET["id"];
 $req = $db->prepare($sql);
 $req->execute();
 $intervenant = $req->fetch();
-
 if (!$intervenant) {
-    header("Location: ./intervenants.php");
+    header("Location: ./intervenants.php?notif=impossible de récupérer l'intervant&type=danger");
 }
+
+$sql = "SELECT * FROM subjects";
+$req = $db->prepare($sql);
+$req->execute();
+$subjects = $req->fetchAll();
+
+$sql = "SELECT * FROM speakers_subjects WHERE speaker_id = " . $_GET["id"];
+$req = $db->prepare($sql);
+$req->execute();
+$speakers_subjects = $req->fetchAll();
+// ["5", "6","9"]
+$checked_subjects = [];
+foreach ($speakers_subjects as $key => $ss) {
+    array_push($checked_subjects, $ss["subject_id"]);
+}
+
+
 
 include("./components/header.php");
 ?>
@@ -74,6 +90,14 @@ include("./components/header.php");
                                     <input type="text" name="firstname" id="firstname" class="form-control" placeholder="Jérémy" value="<?= $intervenant["firstname"] ?>">
                                 </div>
                             </div>
+                        </div>
+                        <div class="row m-0">
+                            <?php foreach ($subjects as $key => $sub) { ?>
+                                <div class="custom-control custom-checkbox col-md-1">
+                                    <input <?= in_array($sub["id"], $checked_subjects) ? "checked" : "" ?> type="checkbox" class="custom-control-input" id="subject-<?= $sub["id"] ?>" name="subjects_ids[]" value="<?= $sub["id"]  ?>">
+                                    <label class="custom-control-label text-uppercase" for="subject-<?= $sub["id"] ?>"><?= $sub["name"]  ?></label>
+                                </div>
+                            <?php } ?>
                         </div>
                         <div class="text-right">
                             <button class="btn btn-success">Modifier</button>
