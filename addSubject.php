@@ -1,4 +1,12 @@
-<?php include("./components/header.php") ?>
+<?php
+include("./components/header.php");
+include('./components/db.php');
+
+$sql = "SELECT * FROM speakers";
+$req = $db->prepare($sql);
+$req->execute();
+$speakers = $req->fetchAll();
+?>
 
 <!-- Header -->
 <div class="header bg-primary pb-6">
@@ -60,6 +68,14 @@
                                     <input type="text" name="ref" id="ref" class="form-control" placeholder="phplicence3">
                                 </div>
                             </div>
+                        </div>
+                        <div class="row m-0">
+                            <?php foreach ($speakers as $key => $spk) { ?>
+                                <div class="custom-control custom-checkbox col-md-1">
+                                    <input type="checkbox" class="custom-control-input" id="subject-<?= $spk["id"] ?>" name="speakers_ids[]" value="<?= $spk["id"]  ?>">
+                                    <label class="custom-control-label text-uppercase" for="subject-<?= $spk["id"] ?>"><?= $spk["firstname"]  ?></label>
+                                </div>
+                            <?php } ?>
                         </div>
                         <div class="text-right">
                             <button class="btn btn-success">Ajouter</button>

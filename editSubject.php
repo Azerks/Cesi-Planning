@@ -7,40 +7,54 @@ include("./components/header.php");
 include("./components/db.php");
 
 
-
 $sql = "SELECT * FROM subjects WHERE id = " . $_GET["id"];
 $req = $db->prepare($sql);
 $req->execute();
 $subject = $req->fetch();
 
 
+$sql = "SELECT * FROM speakers";
+$req = $db->prepare($sql);
+$req->execute();
+$speakers = $req->fetchAll();
+
+$sql = "SELECT * FROM speakers_subjects WHERE subject_id = " . $_GET["id"];
+$req = $db->prepare($sql);
+$req->execute();
+$speakers_subjects = $req->fetchAll();
+// ["5", "6","9"]
+$checked_speakers = [];
+foreach ($speakers_subjects as $key => $ss) {
+    array_push($checked_speakers, $ss["speaker_id"]);
+}
+
 
 ?>
 
-<!-- Header -->
-<div class="header bg-primary pb-6">
-    <div class="container-fluid">
-        <div class="header-body">
-            <div class="row align-items-center py-4">
-                <div class="col-lg-6 col-7">
-                    <h6 class="h2 text-white d-inline-block mb-0">Default</h6>
-                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                            <li class="breadcrumb-item"><a href="./index.php"><i class="fas fa-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="./subjects.php">Matières</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Modifier</li>
-                        </ol>
-                    </nav>
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">Default</h6>
+                        <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                                <li class="breadcrumb-item"><a href="./index.php"><i class="fas fa-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="./subjects.php">Matières</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Modifier</li>
+                            </ol>
+                        </nav>
+                    </div>
                 </div>
-            </div>
-            <!-- Card stats -->
-            <div class="row">
+                <!-- Card stats -->
+                <div class="row">
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- Page content -->
-<div class="container-fluid mt--6">
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
     <div class="row">
 
         <!---------------------------------------------------------------------------------------------------------------------------
@@ -48,18 +62,6 @@ $subject = $req->fetch();
                                              METTRE LE CONTENU DE VOTRE PAGE CI-DESSOUS
 
         --------------------------------------------------------------------------------------------------------------------------->
-
-
-
-
-
-
-
-
-
-
-
-
         <div class="card col-12">
             <div class="card-header">
                 <div class="row align-items-center">
@@ -76,15 +78,25 @@ $subject = $req->fetch();
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label" for="name">Nom de la matière</label>
-                                    <input type="text" id="name" name="name" class="form-control" placeholder="devweb" value="<?= $subject["name"] ?>">
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="devweb"
+                                           value="<?= $subject["name"] ?>">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label" for="ref">Référence de la matière</label>
-                                    <input type="text" name="ref" id="ref" class="form-control" placeholder="RED08203" value="<?= $subject["ref"] ?>">
+                                    <input type="text" name="ref" id="ref" class="form-control" placeholder="RED08203"
+                                           value="<?= $subject["ref"] ?>">
                                 </div>
                             </div>
+                        </div>
+                        <div class="row m-0">
+                            <?php foreach ($speakers as $key => $sub) { ?>
+                                <div class="custom-control custom-checkbox col-md-1">
+                                    <input <?= in_array($sub["id"], $checked_speakers) ? "checked" : "" ?> type="checkbox" class="custom-control-input" id="subject-<?= $sub["id"] ?>" name="speakers_ids[]" value="<?= $sub["id"]  ?>">
+                                    <label class="custom-control-label text-uppercase" for="subject-<?= $sub["id"] ?>"><?= $sub["firstname"]  ?></label>
+                                </div>
+                            <?php } ?>
                         </div>
                         <div class="text-right">
                             <button class="btn btn-success">Modifier</button>
@@ -101,4 +113,4 @@ $subject = $req->fetch();
       --------------------------------------------------------------------------------------------------------------------------->
     </div>
 
-    <?php include("./components/footer.php") ?>
+<?php include("./components/footer.php") ?>

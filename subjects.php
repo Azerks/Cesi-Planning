@@ -7,6 +7,13 @@ $req = $db->prepare($sql);
 $req->execute();
 $subjects = $req->fetchAll();
 
+function getSpeakers($db, $subject_id)
+{
+    $sql = "SELECT * FROM speakers JOIN speakers_subjects ss on speakers.id = ss.speaker_id WHERE subject_id = $subject_id";
+    $req = $db->prepare($sql);
+    $req->execute();
+    return $req->fetchAll();
+}
 ?>
 
 <!-- Header -->
@@ -35,6 +42,20 @@ $subjects = $req->fetchAll();
 </div>
 <!-- Page content -->
 <div class="container-fluid mt--6">
+    <?php if (
+        isset($_GET["notif"]) && !empty($_GET["notif"])
+        && isset($_GET["type"]) && !empty($_GET["type"])
+    ) { ?>
+
+        <div class="alert alert-<?= $_GET["type"] ?> alert-dismissible fade show" role="alert">
+            <span class="alert-icon"><i class="ni ni-like-2"></i></span>
+            <span class="alert-text"><?= $_GET["notif"] ?></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+    <?php } ?>
   <div class="row">
 
 
@@ -59,6 +80,7 @@ $subjects = $req->fetchAll();
               <tr>
                 <th scope="col" class="sort" data-sort="name">Nom de la matière</th>
                 <th scope="col" class="sort" data-sort="budget">Ref de la matière</th>
+                <th scope="col" class="sort" data-sort="budget">Intervenants</th>
                 <th scope="col"></th>
               </tr>
             </thead>
@@ -71,6 +93,11 @@ $subjects = $req->fetchAll();
                   <td>
                     <?= $subject["ref"] ?>
                   </td>
+                    <td>
+                        <?php foreach (getSpeakers($db,  $subject["id"]) as $key => $sub) { ?>
+                            <a href="./editIntervenant.php?id=<?= $sub["id"] ?>" class="badge badge-primary badge-md"><?= $sub["firstname"] ?></a>
+                        <?php } ?>
+                    </td>
                   <td class="text-right">
                     <a class="text-white btn btn-primary" href="./editSubject.php?id=<?= $subject["id"] ?>"><i class="ni ni-settings-gear-65 text-white"></i></a>
                     <a class="text-white btn btn-danger" href="./traitements/subjects.php?action=del&id=<?= $subject["id"] ?>"><i class="ni ni-fat-remove text-white"></i></a>
