@@ -3,7 +3,7 @@ if (!isset($_GET["id"]) || empty($_GET["id"])) {
     header("Location: ./intervenants.php");
 }
 
-include("./components/db.php");
+
 
 $sql = "SELECT * FROM speakers WHERE id = " . $_GET["id"];
 $req = $db->prepare($sql);

@@ -4,7 +4,7 @@ if (!isset($_GET["id"]) || empty($_GET["id"])) {
 }
 
 include("./components/header.php");
-include("./components/db.php");
+
 
 
 

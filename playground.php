@@ -1,6 +1,6 @@
 <?php
 
-include("./components/db.php");
+
 
 if (
   isset($_GET["subjects"]) && !empty($_GET["subjects"])

@@ -1,6 +1,5 @@
 <?php
 include("./components/header.php");
-include("./components/db.php");
 
 $sql = "SELECT * FROM subjects";
 $req = $db->prepare($sql);

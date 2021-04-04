@@ -1,6 +1,5 @@
-<?php 
+<?php
 include("./components/header.php");
-include("./components/db.php");
 
 $sql = "SELECT * FROM promos";
 $req = $db->prepare($sql);

@@ -1,6 +1,6 @@
 <?php
 include("./components/header.php");
-include("./components/db.php");
+
 
 $sql = "SELECT * FROM speakers";
 $req = $db->prepare($sql);

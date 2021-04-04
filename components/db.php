@@ -1,5 +1,20 @@
 <?php
 
+session_start();
+if (!isset($_SESSION["login"]) || empty($_SESSION["login"])){
+    $_SESSION["login"] = false;
+}
+
+if ($_SESSION["login"] == false) {
+    if ($_SERVER['PHP_SELF'] != '/signin.php') {
+        if ( $_SERVER['PHP_SELF'] != '/signup.php') {
+            header('Location: signin.php');
+        }
+    }
+} else if ($_SERVER['PHP_SELF'] != '/index.php'){
+    header('Location: index.php');
+}
+
 try {
   $db = new PDO('mysql:dbname=cesi_app;host=localhost;charset=UTF8', 'root', '');
 } catch (\Throwable $th) {
