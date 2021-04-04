@@ -11,8 +11,6 @@ if ($_SESSION["login"] == false) {
             header('Location: signin.php');
         }
     }
-} else if ($_SERVER['PHP_SELF'] != '/index.php'){
-    header('Location: index.php');
 }
 
 try {
