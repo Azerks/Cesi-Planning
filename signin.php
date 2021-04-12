@@ -13,7 +13,7 @@ if (isset($_POST["email"]) && !empty($_POST["email"])
     if ($userExist["email"] == $_POST["email"] && $userExist["password"] == $_POST["password"]) {
         $_SESSION["login"] = true;
         $_SESSION["user"] = [$userExist["email"], $userExist["pseudo"]];
-        header('Location: ./index.php');
+        header('Location: index.php');
     } else {
         $_SESSION["login"] = false;
     }
