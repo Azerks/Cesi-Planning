@@ -8,7 +8,7 @@ if (!isset($_SESSION["login"]) || empty($_SESSION["login"])){
 if ($_SESSION["login"] == false) {
     if ($_SERVER['PHP_SELF'] != '/signin.php') {
         if ( $_SERVER['PHP_SELF'] != '/signup.php') {
-            header('Location: signin.php');
+            header('Location: ./signin.php');
         }
     }
 }
