@@ -1,5 +1,6 @@
 <?php
 
+include("./components/header.php");
 
 if (!isset($_GET["id"]) || empty($_GET["id"])) {
     header("Location: ./index.php");
@@ -24,7 +25,6 @@ if (!$promos) {
     header("Location: ./index.php");
 }
 
-include("./components/header.php");
 ?>
 <div class="main-content" id="panel">
 
