@@ -81,7 +81,7 @@ if (isset($_POST["email"]) && !empty($_POST["email"])
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="signup.php" class="nav-link">
+                    <a href="./signup.php" class="nav-link">
                         <span class="nav-link-inner--text">Register</span>
                     </a>
                 </li>
@@ -209,7 +209,7 @@ if (isset($_POST["email"]) && !empty($_POST["email"])
                         <a href="#" class="text-light"><small>Forgot password?</small></a>
                     </div>
                     <div class="col-6 text-right">
-                        <a href="#" class="text-light"><small>Create new account</small></a>
+                        <a href="signup.php" class="text-light"><small>Create new account</small></a>
                     </div>
                 </div>
             </div>
