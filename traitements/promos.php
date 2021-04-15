@@ -22,10 +22,15 @@ switch ($_GET["action"]) {
         break;
     case 'del':
         if (isset($_GET["id"]) && !empty($_GET["id"])) {
-            $sql = "DELETE FROM promos WHERE id = " . $_GET["id"];
-            $req = $db->prepare($sql);
-            if ($req->execute()) {
-                header('Location: ../index.php');
+            try {
+                $sql = "DELETE FROM promos WHERE id = " . $_GET["id"];
+                $req = $db->prepare($sql);
+                if ($req->execute()) {
+                    header('Location: ../index.php');
+                }
+            } catch (\Throwable $e) {
+                header('Location: ../index.php?notif=' . "Impossible de supprimer" . '&type=danger');
+
             }
         } else {
             header('Location: ../index.php?notif=' . "Champs invalides" . '&type=danger');

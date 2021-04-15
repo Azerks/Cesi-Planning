@@ -44,10 +44,14 @@ switch ($_GET["action"]) {
         break;
     case 'del':
         if (isset($_GET["id"]) && !empty($_GET["id"])) {
-            $sql = "DELETE FROM subjects WHERE id = " . $_GET["id"];
-            $req = $db->prepare($sql);
-            if ($req->execute()) {
-                header('Location: ../subjects.php');
+            try {
+                $sql = "DELETE FROM subjects WHERE id = " . $_GET["id"];
+                $req = $db->prepare($sql);
+                if ($req->execute()) {
+                    header('Location: ../subjects.php');
+                }
+            } catch (\Throwable $th) {
+                header('Location: ../subjects.php?notif=' . "Champs invalides" . '&type=danger');
             }
         } else {
             header('Location: ../subjects.php?notif=' . "Champs invalides" . '&type=danger');
