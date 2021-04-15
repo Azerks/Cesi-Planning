@@ -49,9 +49,9 @@ if (!$promos) {
                         <a href="#" class="fullcalendar-btn-next btn btn-sm btn-neutral">
                             <i class="fas fa-angle-right"></i>
                         </a>
-                        <a href="#" class="btn btn-sm btn-neutral" data-calendar-view="month">Month</a>
-                        <a href="#" class="btn btn-sm btn-neutral" data-calendar-view="basicWeek">Week</a>
-                        <a href="#" class="btn btn-sm btn-neutral" data-calendar-view="basicDay">Day</a>
+                        <a href="#" class="btn btn-sm btn-neutral" data-calendar-view="month">Mois</a>
+                        <a href="#" class="btn btn-sm btn-neutral" data-calendar-view="basicWeek">Semaines</a>
+                        <a href="#" class="btn btn-sm btn-neutral" data-calendar-view="basicDay">Jours</a>
                     </div>
                 </div>
             </div>
@@ -86,8 +86,8 @@ if (!$promos) {
                             <div class="modal-body">
                                 <form class="new-event--form">
                                     <div class="form-group">
-                                        <label class="form-control-label">Event title</label>
-                                        <input type="text" class="form-control form-control-alternative new-event--title" placeholder="Event Title">
+                                        <label class="form-control-label">Nouveaux cours</label>
+                                        <input type="text" class="form-control form-control-alternative new-event--title" placeholder="Nom du cours">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Intervenants</label>
@@ -124,8 +124,8 @@ if (!$promos) {
                             </div>
                             <!-- Modal footer -->
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary new-event--add">Add event</button>
-                                <button type="button" class="btn btn-link ml-auto" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary new-event--add">Ajouter le cours</button>
+                                <button type="button" class="btn btn-link ml-auto" data-dismiss="modal">Fermer</button>
                             </div>
                         </div>
                     </div>

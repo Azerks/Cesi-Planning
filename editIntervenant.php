@@ -1,9 +1,10 @@
 <?php
+
+include("./components/header.php");
+
 if (!isset($_GET["id"]) || empty($_GET["id"])) {
     header("Location: ./intervenants.php");
 }
-
-
 
 $sql = "SELECT * FROM speakers WHERE id = " . $_GET["id"];
 $req = $db->prepare($sql);
@@ -27,10 +28,6 @@ $checked_subjects = [];
 foreach ($speakers_subjects as $key => $ss) {
     array_push($checked_subjects, $ss["subject_id"]);
 }
-
-
-
-include("./components/header.php");
 ?>
 
 <!-- Header -->
@@ -39,7 +36,7 @@ include("./components/header.php");
         <div class="header-body">
             <div class="row align-items-center py-4">
                 <div class="col-lg-6 col-7">
-                    <h6 class="h2 text-white d-inline-block mb-0">Default</h6>
+
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                             <li class="breadcrumb-item"><a href="./index.php"><i class="fas fa-home"></i></a></li>

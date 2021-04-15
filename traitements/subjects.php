@@ -32,23 +32,26 @@ switch ($_GET["action"]) {
                 }
 
                 $db->commit();
-                header('Location: ../subjects.php?notif=vous avez ajouté votre matières&type=success');
+                header('Location: ../subjects.php?notif=Vous avez ajouté votre matières&type=success');
 
             } catch (\Throwable $th) {
                 $db->rollBack();
                 header('Location: ../subjects.php?notif=' . $th->getMessage() . '&type=danger');
             }
-
-          }
+        } else {
+            header('Location: ../subjects.php?notif=' . "Champs invalides" . '&type=danger');
+        }
         break;
     case 'del':
         if (isset($_GET["id"]) && !empty($_GET["id"])) {
             $sql = "DELETE FROM subjects WHERE id = " . $_GET["id"];
             $req = $db->prepare($sql);
             if ($req->execute()) {
-              header('Location: ../subjects.php');
+                header('Location: ../subjects.php');
             }
-          }
+        } else {
+            header('Location: ../subjects.php?notif=' . "Champs invalides" . '&type=danger');
+        }
         break;
     case 'edit':
 
@@ -57,7 +60,7 @@ switch ($_GET["action"]) {
             && isset($_POST["ref"]) && !empty($_POST["ref"])
             && isset($_GET["id"]) && !empty($_GET["id"])
             && isset($_POST["speakers_ids"]) && !empty($_POST["speakers_ids"])
-        )  {
+        ) {
             try {
                 $db->beginTransaction();
                 $subjectID = $_GET["id"];
@@ -88,13 +91,14 @@ switch ($_GET["action"]) {
                 }
 
                 $db->commit();
-                header('Location: ../subjects.php?notif=vous avez modifié votre intervenant&type=success');
+                header('Location: ../subjects.php?notif=Vous avez modifié votre intervenant&type=success');
             } catch (\Throwable $th) {
                 $db->rollBack();
                 header('Location: ../subjects.php?notif=' . $th->getMessage() . '&type=danger');
             }
-
-          }
+        } else {
+            header('Location: ../subjects.php?notif=' . "Champs invalides" . '&type=danger');
+        }
         break;
     default:
         header("Location: ../404.html");

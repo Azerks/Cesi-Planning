@@ -15,6 +15,7 @@
 
 */
 "use strict";
+
 var Layout = function() {
     function e() {
         $(".sidenav-toggler").addClass("active"),
@@ -491,7 +492,7 @@ var BarStackedChart = function() {
     }
     ,
     t = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        labels: ["January", "February", "March", "Avril", "May", "June", "July"],
         datasets: [{
             label: "Dataset 1",
             backgroundColor: Charts.colors.theme.danger,
@@ -714,6 +715,7 @@ if ($('[data-toggle="widget-calendar"]')[0]) {
     $('[data-toggle="widget-calendar"]').fullCalendar({
         contentHeight: "auto",
         theme: !1,
+        lang: 'fr',
         buttonIcons: {
             prev: " ni ni-bold-left",
             next: " ni ni-bold-right"

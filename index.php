@@ -14,7 +14,7 @@ $promos = $req->fetchAll();
     <div class="header-body">
       <div class="row align-items-center py-4">
         <div class="col-lg-6 col-7">
-          <h6 class="h2 text-white d-inline-block mb-0">Default</h6>
+
           <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
               <li class="breadcrumb-item active" aria-current="page"><i class="fas fa-home"></i></li>
@@ -60,7 +60,7 @@ $promos = $req->fetchAll();
                   </div>
                 </div>
                 <div class="mt-4">
-                  <a type="button" href="./calendarPromo.php?id=<?=$promo["id"]?>" class="btn btn-primary text-white">Détails</a>
+                  <a type="button" href="./calendarPromo.php?id=<?=$promo["id"]?>" class="btn btn-primary text-white">Planning</a>
                   <a type="button" href="./editPromo.php?id=<?=$promo["id"]?>" class="btn btn-warning text-white">Modifier</a>
                   <a type="button" href="./traitements/promos.php?action=del&id=<?=$promo["id"]?>" class="btn btn-danger text-white">Supprimer</a>
                 </div>

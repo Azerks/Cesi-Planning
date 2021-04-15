@@ -32,11 +32,13 @@ switch ($_GET["action"]) {
         }
 
         $db->commit();
-        header('Location: ../intervenants.php?notif=vous avez ajouté votre intervenant&type=success');
+        header('Location: ../intervenants.php?notif=Vous avez ajouté votre intervenant&type=success');
       } catch (\Throwable $th) {
         $db->rollBack();
         header('Location: ../intervenants.php?notif=' . $th->getMessage() . '&type=danger');
       }
+    } else {
+        header('Location: ../intervenants.php?notif=' . "Champs invalides" . '&type=danger');
     }
     break;
   case 'del':
@@ -47,10 +49,12 @@ switch ($_GET["action"]) {
         if (!$req->execute()) {
           throw new Error("impossible de supprimer l'intervenant");
         }
-        header('Location: ../intervenants.php?notif=vous avez supprimé votre intervenant&type=success');
+        header('Location: ../intervenants.php?notif=Vous avez supprimé votre intervenant&type=success');
       } catch (\Throwable $th) {
         header('Location: ../intervenants.php?notif=' . $th->getMessage() . '&type=danger');
       }
+    }else {
+        header('Location: ../intervenants.php?notif=' . "Champs invalides" . '&type=danger');
     }
     break;
   case 'edit':
@@ -89,11 +93,13 @@ switch ($_GET["action"]) {
         }
 
         $db->commit();
-        header('Location: ../intervenants.php?notif=vous avez modifié votre intervenant&type=success');
+        header('Location: ../intervenants.php?notif=Vous avez modifié votre intervenant&type=success');
       } catch (\Throwable $th) {
         $db->rollBack();
         header('Location: ../intervenants.php?notif=' . $th->getMessage() . '&type=danger');
       }
+    }else {
+        header('Location: ../intervenants.php?notif=' . "Champs invalides" . '&type=danger');
     }
     break;
   default:
